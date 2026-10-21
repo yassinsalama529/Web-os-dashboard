@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>الواجهة العربية</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="clock-area" id="clock">--:--</div>
+      <div class="date-area" id="full-date">الخرج</div>
+    </div>
+
+    <div class="widgets-bar">
+      <div class="widget-card">
+        <div class="widget-title">الصلاة القادمة</div>
+        <div class="widget-value" id="next-prayer">العشاء</div>
+      </div>
+
+      <div class="widget-card">
+        <div class="widget-title">باقي على رمضان</div>
+        <div class="widget-value" id="ramadan-countdown">-- يوماً</div>
+      </div>
+
+      <div class="widget-card">
+        <div class="widget-title">المباراة القادمة</div>
+        <div class="widget-value" id="match-details">الهلال × النصر</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="shelf-section">
+    <h3>المفضلة والمداخل</h3>
+    <div class="apps-shelf">
+      <button class="app-btn" onclick="launchApp('youtube.leanback.v4')">YouTube</button>
+      <button class="app-btn" onclick="launchApp('com.shahid')">شاهد</button>
+      <button class="app-btn" onclick="launchApp('netflix')">Netflix</button>
+      <button class="app-btn" onclick="launchApp('com.webos.app.browser')">المتصفح</button>
+      <button class="app-btn" onclick="launchApp('com.webos.app.hdmi1')">HDMI 1</button>
+      <button class="app-btn" onclick="launchApp('com.webos.app.hdmi2')">HDMI 2</button>
+    </div>
+  </main>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('full-date').textContent = now.toLocaleDateString('ar-SA', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function launchApp(appId) {
+      if (window.webOS && window.webOS.service) {
+        window.webOS.service.request('luna://com.webos.applicationManager', {
+          method: 'launch',
+          parameters: { id: appId },
+          onFailure: function (err) { console.error(err); }
+        });
+      } else {
+        console.log("Launching: " + appId);
+      }
+    }
+
+    async function loadPrayerTimes() {
+      try {
+        const res = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Al-Kharj&country=Saudi%20Arabia&method=4');
+        const data = await res.json();
+        const timings = data.data.timings;
+        document.getElementById('next-prayer').textContent = "العشاء " + timings.Isha;
+      } catch (e) {
+        document.getElementById('next-prayer').textContent = "العشاء 7:45 م";
+      }
+    }
+    loadPrayerTimes();
+  </script>
+</body>
+</html>
