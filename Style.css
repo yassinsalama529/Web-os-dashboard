@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0d1b2a, #1b263b);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 60px;
+  direction: rtl;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.clock-area {
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.date-area {
+  font-size: 1.5rem;
+  color: #a0aec0;
+  margin-top: 10px;
+}
+
+.widgets-bar {
+  display: flex;
+  gap: 20px;
+}
+
+.widget-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  padding: 16px 24px;
+  border-radius: 16px;
+  min-width: 180px;
+}
+
+.widget-title {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-bottom: 6px;
+}
+
+.widget-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+.shelf-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  color: #94a3b8;
+}
+
+.apps-shelf {
+  display: flex;
+  gap: 20px;
+}
+
+.app-btn {
+  background: rgba(255, 255, 255, 0.
